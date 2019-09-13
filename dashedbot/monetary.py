@@ -61,4 +61,5 @@ class Apartments(commands.Cog):
                 await ctx.send('{0.mention}: insufficient funds'.format(ctx.author))
             else:
                 scores[id] -= self.PRICE
+                scores.save()
                 self[id] += timedelta(days=30)
