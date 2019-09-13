@@ -50,3 +50,15 @@ class Apartments(commands.Cog):
     async def due(self, ctx, *, id: str):
         '''tells when an id's rent is due'''
         await ctx.send('{0}\'s rent is due {1}'.format(id, self[str(ctx.author.id)]))
+
+    @commands.command()
+    async def renew(self, ctx):
+        '''add 30 more days to the lease'''
+        id = str(ctx.author.id)
+        scores = self._bot.get_cog('Scores')
+        if id in self._state and scores:
+            if self.PRICE > scores[id]:
+                await ctx.send('{0.mention}: insufficient funds'.format(ctx.author))
+            else:
+                scores[id] -= self.PRICE
+                self[id] += timedelta(days=30)
