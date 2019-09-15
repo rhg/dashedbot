@@ -47,6 +47,18 @@ class Scores(commands.Cog):
             self[t] = b + amt
             self.save()
 
+    @commands.command()
+    async def leaders(self, ctx):
+        '''prints out a list of balances sorted by amount'''
+        guild = ctx.bot.guilds[0]
+        l = sorted(((m.id, self[str(m.id)])
+                    for m in guild.members if not m.bot),
+                   key=lambda t: t[1],
+                   reverse=True)
+        s = "\n".join(
+            '{0} - {1} coin(s)'.format(guild.get_member(t[0]), t[1]) for t in l)
+        await ctx.send('```\n{0}\n```'.format(s))
+
     def __getitem__(self, key: str):
         return self._scores.get(key, 500)
 
