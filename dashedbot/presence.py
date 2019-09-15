@@ -1,4 +1,5 @@
 from functools import reduce
+from os import environ
 
 import discord
 from discord.ext import commands
@@ -9,7 +10,8 @@ def non_bots(guild: discord.Guild):
 
 
 async def set_presence(bot: discord.Client, n: int):
-    g = discord.Game('with {0} users. version 2-dev'.format(n))
+    version = environ['HASH']
+    g = discord.Game('with {0} users. version r{1}'.format(n, version))
     await bot.change_presence(status=discord.Status.online, activity=g)
 
 
