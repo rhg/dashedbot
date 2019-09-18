@@ -1,13 +1,13 @@
 from functools import reduce
 from subprocess import check_output
-from os import environ
+from os import environ, path
 
 import discord
 from discord.ext import commands
 
 
 def get_version(root: str) -> str:
-    return check_output(["git", "rev-parse", "HEAD"], cwd=root)
+    return check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().replace('\n', '')
 
 
 def non_bots(guild: discord.Guild):
@@ -21,7 +21,7 @@ class Presence(commands.Cog):
         '''sets state'''
         self.bot = bot
         self.n = -1
-        root = environ.get('ROOT', False)
+        root = path.join(path.dirname(__file__), '..')
         self._version = get_version(root) if root else 'unknown'
 
     @commands.Cog.listener()
