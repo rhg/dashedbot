@@ -1,5 +1,5 @@
 .venv/
-.env
+.vscode/launch.json
 apartments.json
 scores.json
 *.pyc
