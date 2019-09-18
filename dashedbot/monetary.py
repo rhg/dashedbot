@@ -63,3 +63,12 @@ class Apartments(commands.Cog):
                 scores[id] -= self.PRICE
                 scores.save()
                 self[id] += timedelta(days=30)
+
+    @commands.command()
+    async def rents(self, ctx):
+        '''prints out a sorted list of rent due dates'''
+        guild = ctx.bot.guilds[0]  # assumes one guild
+        l = sorted(((guild.get_member(int(sid)), due)
+                    for (sid, due) in self._state.items()), key=lambda t: t[1], reverse=True)
+        s = '\n'.join('{0} - {1}'.format(m, coins) for (m, coins) in l)
+        await ctx.send('```\n{0}\n```'.format(s))
