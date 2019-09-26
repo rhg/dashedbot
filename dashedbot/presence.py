@@ -46,6 +46,6 @@ class Presence(commands.Cog):
             await self.set_presence()
 
     async def set_presence(self):
-        game = discord.Game('with {0} users. version r{1}'.format(
-            self.n, self._version.upper()))
-        await self.bot.change_presence(status=discord.Status.online, activity=game)
+        activity = discord.Game(name='r{0}: {1} users'.format(
+            self._version.upper(), self.n))
+        await self.bot.change_presence(status=discord.Status.online, activity=activity)
