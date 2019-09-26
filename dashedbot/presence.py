@@ -7,7 +7,7 @@ from discord.ext import commands
 
 
 def get_version(root: str) -> str:
-    return check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().replace('\n', '')
+    return check_output(["git", "rev-parse", "--short", "HEAD"], cwd=root).decode().replace('\n', '')
 
 
 def non_bots(guild: discord.Guild):
